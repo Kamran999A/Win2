@@ -6,16 +6,15 @@ using System.Threading.Tasks;
 
 namespace T2
 {
-    public class Applier : Human
+    public class User : Id 
     {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string FullName { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
+        public DateTime Birthdate { get; set; }
+     
 
-        public IList<string> Languages { get; set; }
-
-        public Applier()
-        {
-            Languages = new List<string>();
-        }
     }
 }

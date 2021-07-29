@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
@@ -12,44 +13,46 @@ namespace T2
     {
         private static readonly JsonSerializer Serializer;
 
-        public static string FileName { get; set; }
         static FileHelper()
         {
             Serializer = new JsonSerializer();
         }
 
-        public static void WriteToJson(IList<Applier> workers)
+        public static void WriteUserToJson(string fileName, User user)
         {
-            using (var fs = new FileStream(FileName, FileMode.Create))
+            using (var fs = new FileStream(fileName, FileMode.OpenOrCreate))
             {
                 using (var sw = new StreamWriter(fs, Encoding.UTF8))
                 {
                     using (var jw = new JsonTextWriter(sw))
                     {
-                        Serializer.Formatting = Formatting.Indented;
+                        jw.Formatting = Formatting.Indented;
 
-                        Serializer.Serialize(jw, workers);
+                        Serializer.Serialize(jw, user);
                     }
                 }
             }
         }
 
-        public static IList<Applier> ReadFromJson()
+        public static User ReadUserFromJson(string fileName)
         {
-            var workers = new List<Applier>();
-
-            using (var fs = new FileStream(FileName, FileMode.Open))
+            User user = null;
+            using (var fs = new FileStream(fileName, FileMode.OpenOrCreate))
             {
                 using (var sr = new StreamReader(fs, Encoding.UTF8))
                 {
                     using (var jr = new JsonTextReader(sr))
                     {
-                        workers = Serializer.Deserialize<List<Applier>>(jr) ?? workers;
+                        user = Serializer.Deserialize<User>(jr);
                     }
                 }
             }
 
-            return workers;
+            return user;
         }
+
+        public static string CreateFileName(User user) => $"{user.FullName}.json";
+
+     
     }
 }

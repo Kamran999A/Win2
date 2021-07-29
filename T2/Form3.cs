@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -13,79 +14,40 @@ namespace T2
 {
     public partial class Form3 : Form
     {
-
-        public Applier _applier;
-
-
-        private Form2 _form;
+        private Form4 form4 = new Form4();
+        private List<User> Users { get; set; }
+        private User _currentUser;
+        private bool _isLoaded = false;
 
 
         public Form3()
         {
             InitializeComponent();
+            //LoadUsersToListBox();
         }
 
-          public Form3(Form2 form) : this()
-        {
-            _form = form;
-        }
-        
-
-        public Form3(Form2 form, Applier applier) : this(form)
-        {
-            _applier = applier;
-        }
         private void Form3_Load(object sender, EventArgs e)
         {
-           
-              if (_applier != null)
-              {
-                bunifuTextBox1.Text = _applier.FirstName;
-                
-                bunifuSurnamelbl.Text = _applier.LastName;
+            Users = new List<User>();
 
-                bunifuMail.Text = _applier.Email;
-
-                maskedTextBox1.Text = _applier.PhoneNumber;
-
-                if (_applier.Gender == bunifuMaleRbtn.Text)
-                {
-                    bunifuMaleRbtn.Checked = true;
-                }
-                else if (_applier.Gender == bunifuFemaleRbtn.Text)
-                {
-                    bunifuFemaleRbtn.Checked = true;
-                }
-                if (_applier.Languages.Contains(bunifuCheckBoxEnglish.Text))
-                    bunifuCheckBoxEnglish.Checked = true;
-
-                if (_applier.Languages.Contains(bunifuCheckBoxRussian.Text))
-                    bunifuCheckBoxRussian.Checked = true;
-
-                if (_applier.Languages.Contains(bunifuCheckBoxJewish.Text))
-                    bunifuCheckBoxJewish.Checked = true;
-
-                if (_applier.Languages.Contains(bunifuCheckBoxGerman.Text))
-                    bunifuCheckBoxGerman.Checked = true;
-              }
         }
+        //private bool CheckUserInputs()
+        //{
+        //    if (!ValidateUserInputs())
+        //    {
+        //        MessageBox.Show("User can not be added. Please, fill inputs correct format!");
+        //        return false;
+        //    }
 
+        //    return true;
+        //}
         private void bunifuTextBox1_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void guna2TextBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void bunifuLabel2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void bunifuMaillbl_Click(object sender, EventArgs e)
         {
 
         }
@@ -95,117 +57,214 @@ namespace T2
 
         }
 
-        private void bunifuLanguagelbl_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void gunaEnglish_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void guna2HtmlLabel2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void guna2HtmlLabel3_Click(object sender, EventArgs e)
-        {
-
-        }
+      
         private bool ValidateMail(string mail)
         {
             return Regex.IsMatch(mail, @"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$");
         }
-        private string Capitalize(string name)
-        {
-            return $"{char.ToUpper(name[0])}{name.Substring(1)}";
-        }
+     
        
         private void bunifuSavebtn_Click(object sender, EventArgs e)
         {
-            if (ValidateMail(bunifuMail.Text))
-            {
-
-                var firstName = Capitalize(bunifuTextBox1.Text);
-                var lastName = Capitalize(bunifuSurnamelbl.Text);
-
-                Applier applier = new Applier();
-
-                applier.FirstName = firstName;
-                applier.LastName = lastName;
-                applier.Gender = (bunifuMaleRbtn.Checked) ? $"{bunifuMaleRbtn.Text}" : $"{bunifuFemaleRbtn.Text}";
-
-                applier.Email = bunifuMail.Text;
-                applier.PhoneNumber = maskedTextBox1.Text;
-                if (bunifuCheckBoxEnglish.Checked)
-                {
-                    applier.Languages.Add(bunifuCheckBoxEnglish.Text);
-                }
-
-                if (bunifuCheckBoxRussian.Checked)
-                {
-                    applier.Languages.Add(bunifuCheckBoxRussian.Text);
-                }
-
-                if (bunifuCheckBoxGerman.Checked)
-                {
-                    applier.Languages.Add(bunifuCheckBoxGerman.Text);
-                }
-
-                if (bunifuCheckBoxJewish.Checked)
-                {
-                    applier.Languages.Add(bunifuCheckBoxJewish.Text);
-                }
-
-                if (_applier == null)
-                {
-                    _form.Appliers.Add(applier);
-                    _applier = applier;
-                }
-                else
-                {
-                    _applier.FirstName = applier.FirstName;
-                    _applier.LastName = applier.LastName;
-                    _applier.Gender = applier.Gender;
-                    _applier.Email = applier.Email;
-                    _applier.PhoneNumber = applier.PhoneNumber;
-                    _applier.Languages = applier.Languages;
-                }
-                _form.Changes = true;
-
-                FileHelper.WriteToJson(_form.Appliers);
-                MessageBox.Show("Saved");
-            }
-            else
-            {
-                MessageBox.Show("You must be fill all required inputs!");
-            }
-        }
-
-        private void guna2PictureBox1_Click(object sender, EventArgs e)
-        {
+            var user = listBox1.SelectedItem as User;
+            FileHelper.WriteUserToJson(bunifuFileNametxt.Text, user);
+            MessageBox.Show("Saved");
 
         }
 
-        private void bunifuLabel2_Click_1(object sender, EventArgs e)
-        {
-
-        }
 
         private void bunifuButton1_Click(object sender, EventArgs e)
         {
             this.Close();
+            form4.Show();
 
-            _form.Show();
+
+        }
+        private void LoadUsersToListBox()
+        {
+            listBox1.Items.Clear();
+            listBox1.ValueMember = "FullName";
+            foreach (var user in Users)
+            {
+                listBox1.Items.Add(user);
+            }
         }
 
-        private void bunifuBackPictureBox_Click(object sender, EventArgs e)
+        private void SelectCurrentUser()
         {
-            this.Close();
+            var userIndex = Users.IndexOf(_currentUser);
+            listBox1.SelectedIndex = userIndex;
+        }
+        public bool ValidateUserInputs()
+        {
+            var status = true;
+            if (string.IsNullOrWhiteSpace(this.bunifuFileNametxt.Text))
+            {
+                status = false;
+            }
 
-            _form.Show();
+            if (string.IsNullOrWhiteSpace(this.bunifuSurnamelbl.Text))
+            {
+                status = false;
+            }
+
+            if (string.IsNullOrWhiteSpace(this.bunifuMail.Text))
+            {
+                status = false;
+            }
+
+
+            if (maskedTextBox1.Text != "(+   )   -" && !maskedTextBox1.MaskFull)
+            {
+                status = false;
+            }
+            return status;
+        }
+
+
+
+        private void LoadUserToForm(User user)
+        {
+            if (user == null)
+                throw new ArgumentNullException(nameof(user));
+
+            bunifuTextBox1.Text = user.FirstName;
+            bunifuSurnamelbl.Text = user.LastName;
+            bunifuMail.Text = user.Email;
+            maskedTextBox1.Text = user.PhoneNumber;
+            dateTimePicker1.Value = user.Birthdate;
+        }
+        private bool CheckUserFromList(User user)
+        {
+            return Users.Any(u => u.Guid == user.Guid);
+        }
+
+        private void bunifuAddbtn_Click(object sender, EventArgs e)
+        {
+
+            if (!_isLoaded)
+            {
+                _currentUser = new User();
+            }
+            else
+            {
+                _isLoaded = false;
+                File.Delete(FileHelper.CreateFileName(_currentUser));
+            }
+
+
+            _currentUser.FirstName = bunifuTextBox1.Text;
+            _currentUser.LastName = bunifuSurnamelbl.Text;
+            _currentUser.FullName = $"{_currentUser.FirstName}{_currentUser.LastName}";
+            _currentUser.Email = bunifuMail.Text;
+            _currentUser.PhoneNumber = maskedTextBox1.Text;
+            _currentUser.Birthdate =dateTimePicker1.Value;
+
+            Users.Add(_currentUser);
+            LoadUsersToListBox();
+            SelectCurrentUser();
+            bunifuAddbtn.Location = new Point(12, 479);
+            bunifuClearbtn.Location = new Point(344, 479);
+
+        }
+
+        private void bunifuClearbtn_Click(object sender, EventArgs e)
+        {
+            _currentUser = null;
+            ClearUserInputs();
+            bunifuClearbtn.Location = new Point(12, 479);
+            bunifuAddbtn.Location = new Point(344, 479);
+        }
+
+
+        private void ClearUserInputs()
+        {
+            bunifuTextBox1.Text = String.Empty;
+            bunifuSurnamelbl.Text = String.Empty;
+            bunifuMail.Text = String.Empty;
+            maskedTextBox1.Text = String.Empty;
+            dateTimePicker1.Text = String.Empty;
+        }
+
+        private void bunifuModifybtn_Click(object sender, EventArgs e)
+        {
+            _currentUser.FirstName = bunifuTextBox1.Text;
+            _currentUser.LastName = bunifuSurnamelbl.Text;
+            _currentUser.FullName = $"{_currentUser.FirstName}{_currentUser.LastName}";
+            _currentUser.Email = bunifuMail.Text;
+            _currentUser.PhoneNumber = maskedTextBox1.Text;
+            _currentUser.Birthdate = dateTimePicker1.Value;
+
+            LoadUsersToListBox();
+            SelectCurrentUser();
+        }
+        private void FocusToTextBox(Control textBox)
+        {
+            textBox.Focus();
+        }
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void bunifuLoadbtn_Click(object sender, EventArgs e)
+        {
+            var fileName = bunifuFileNametxt.Text;
+            if (string.IsNullOrWhiteSpace(fileName))
+            {
+                MessageBox.Show("File name can not be blank!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                FocusToTextBox(bunifuFileNametxt);
+                return;
+            }
+
+            if (!File.Exists(fileName))
+            {
+                MessageBox.Show($"This file does not exist: {fileName}", "Info", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                FocusToTextBox(bunifuFileNametxt);
+                return;
+            }
+
+            var user = FileHelper.ReadUserFromJson(fileName);
+
+            if (CheckUserFromList(user))
+            {
+                MessageBox.Show($"User already in the list");
+                return;
+            }
+
+            _currentUser = user;
+            _isLoaded = true;
+
+            Users.Add(_currentUser);
+            LoadUsersToListBox();
+            try
+            {
+                LoadUserToForm(_currentUser);
+                SelectCurrentUser();
+            }
+            catch (Exception exception)
+            {
+
+            }
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _currentUser = listBox1.SelectedItem as User;
+
+            try
+            {
+                LoadUserToForm(_currentUser);
+                this.bunifuFileNametxt.Text = FileHelper.CreateFileName(_currentUser);
+            }
+            catch (Exception exception)
+            {
+            }
+        }
+
+        private void bunifuFileNametxt_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
+

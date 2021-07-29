@@ -63,29 +63,20 @@ namespace T2.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _4960336_dividers_drafting_geometry_stationery_icon {
+        internal static System.Drawing.Bitmap kisspng_lukoil_petroleum_natural_gas_exxonmobil_company_lukoil_5b14e99354d7c3_1331978615280971713475 {
             get {
-                object obj = ResourceManager.GetObject("_4960336_dividers_drafting_geometry_stationery_icon", resourceCulture);
+                object obj = ResourceManager.GetObject("kisspng_lukoil_petroleum_natural_gas_exxonmobil_company_lukoil_5b14e99354d7c3_133" +
+                        "1978615280971713475", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        internal static System.Drawing.Icon _81161_back_mb_icon {
-            get {
-                object obj = ResourceManager.GetObject("_81161_back_mb_icon", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _81161_back_mb_icon1 {
+        internal static System.Drawing.Bitmap Polish_20210727_223210016 {
             get {
-                object obj = ResourceManager.GetObject("_81161_back_mb_icon1", resourceCulture);
+                object obj = ResourceManager.GetObject("Polish_20210727_223210016", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

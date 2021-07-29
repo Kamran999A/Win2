@@ -4,13 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace T2.Calculator
+namespace T2.Abstracts
 {
-    public enum OperationType
+    public abstract class Item : Id
     {
-        Add,
-        Sub,
-        Mul,
-        Div
+        public double Cost { get; set; }
     }
 }

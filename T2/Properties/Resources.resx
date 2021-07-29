@@ -118,13 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="_81161_back_mb_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\81161_back_mb_icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_4960336_dividers_drafting_geometry_stationery_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\4960336_dividers_drafting_geometry_stationery_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_81161_back_mb_icon1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\81161_back_mb_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="kisspng_lukoil_petroleum_natural_gas_exxonmobil_company_lukoil_5b14e99354d7c3_1331978615280971713475" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\kisspng-lukoil-petroleum-natural-gas-exxonmobil-company-lukoil-5b14e99354d7c3.1331978615280971713475.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

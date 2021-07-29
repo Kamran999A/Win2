@@ -12,8 +12,7 @@ namespace T2
 {
     public partial class Form4 : Form
     {
-        Form2 form2 = new Form2();
-        Form1 form1 = new Form1();
+        //Form2 form2 = new Form2();
 
         public Form4()
         {
@@ -24,14 +23,36 @@ namespace T2
         {
             this.Hide();
 
-            form2.Show();  
+        Form3 form3 = new Form3();
+            form3.Show();  
         }
 
         private void guna2GradientCircleButton2_Click(object sender, EventArgs e)
         {
             this.Hide();
 
-            form1.Show();
+           // form1.Show();
+        }
+
+        private void guna2PictureBox1_MouseHover(object sender, EventArgs e)
+        {
+            Lukoilbtn.BackColor = Color.White;
+        }
+
+        private void Lukoilbtn_MouseLeave(object sender, EventArgs e)
+        {
+            Lukoilbtn.BackColor = Color.Transparent;
+        }
+
+        private void Lukoilbtn_Click(object sender, EventArgs e)
+        {
+            Lukoil lukoil = new Lukoil();
+            lukoil.Show();
+        }
+
+        private void Form4_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
